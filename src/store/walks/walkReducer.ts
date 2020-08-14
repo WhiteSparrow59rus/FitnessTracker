@@ -10,7 +10,7 @@ const getTestArray = function(): Walk[]  {
     const newWalk: Walk = {
       id: i.toString(),
       date: new Date(),
-      distance: i*4525
+      distance: i*303
     }
     walks.push(newWalk)
   }

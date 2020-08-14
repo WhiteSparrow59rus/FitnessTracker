@@ -7,9 +7,12 @@ import { startRemoveWalk } from "../../../store/walks/actions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { List } from 'antd';
+import "./index.css"
+import { pluralize } from "../../../utils"
 
 interface WalksListItemProps {
   walk: Walk
+  style?: any
 }
 interface WalksListItemState {}
 
@@ -21,13 +24,18 @@ export class WalksListItem extends React.Component<Props, WalksListItemState> {
   }
   render() {
     const { walk } = this.props
+    const kilometers = Math.floor(walk.distance/1000)
+    const meters = walk.distance - kilometers*1000
+    const resultString = kilometers === 0 ? 
+    pluralize(walk.distance, ['метр', 'метра', 'метров']) : 
+    `${pluralize(kilometers, ['километр', 'километра', 'километров'])} ${pluralize(meters, ['метр', 'метра', 'метров'])}`
     return (
-      <List.Item key={walk.id}>
+      <List.Item key={walk.id} className="walks-list-item" style={this.props.style}>
         <List.Item.Meta
           title={walk.date.toDateString()}
           description={walk.date.toDateString()}
         />
-        <span>{walk.distance}</span>
+        <span>{resultString}</span>
       </List.Item>
     );
   }

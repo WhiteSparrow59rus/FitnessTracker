@@ -38,8 +38,8 @@ export class WalksList extends React.Component<Props, WalksListState> {
         </div>
         <List className="walks-list-content">
           {
-            walks.map(walk => {
-              return <WalksListItem walk={walk} key={walk.id}/>
+            walks.map((walk, index) => {
+              return <WalksListItem walk={walk} key={walk.id} style={(index % 2 === 1) ? {background: '#EFEFF0'} : null }/>
             })
           }
         </List>
