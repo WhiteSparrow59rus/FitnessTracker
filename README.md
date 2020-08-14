@@ -87,5 +87,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Текущие баги 
 
-- Ошибка "findDOMNode is deprecated in StrictMode" при изпользовании <Button>
+- Ошибка "findDOMNode is deprecated in StrictMode" при изпользовании "<Button>"
 https://github.com/ant-design/ant-design/issues/22493
