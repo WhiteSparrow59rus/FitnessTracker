@@ -6,6 +6,9 @@ import { AppActions } from "../../../types/actions";
 import { bindActionCreators } from "redux";
 import { startRemoveWalk } from "../../../store/walks/actions";
 import { connect } from "react-redux";
+import WalksListItem from "../WalksListItem"
+import { List } from 'antd';
+import './index.css';
 
 interface WalksListProps {
   walks?: Walk[]
@@ -23,9 +26,25 @@ export class WalksList extends React.Component<Props, WalksListState> {
   }  
   render() {
     const { walks } = this.props
-    return walks.map(walk => {
-      return <span>{walk}</span>
-    })
+    return (
+      <div className="walks-list">
+        <div className="walks-list-header">
+          <div className="walks-list-header-left-column">
+            Дата
+          </div>
+          <div className="walks-list-header-right-column">
+            Дистанция
+          </div>
+        </div>
+        <List className="walks-list-content">
+          {
+            walks.map(walk => {
+              return <WalksListItem walk={walk} key={walk.id}/>
+            })
+          }
+        </List>
+      </div>        
+    )
   }
 } 
   

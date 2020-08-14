@@ -12,13 +12,15 @@ const App: React.FC = () => {
       <div className="main-content">
         <div className="main-row">
           <div className="left-column">
-            <WalksList/>
-            <div className="left-column-footer">
-            <WalkAdd/>
+            <div className="site-layout-content">
+              <WalksList/>
+            </div>
+            <div  className="left-column-footer">
+              <WalkAdd/>
             </div>
           </div>
           <div className="right-column">
-            col-6
+            col-18
             <div className="right-column-footer">
 
             </div>

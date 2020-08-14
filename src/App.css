@@ -4,6 +4,7 @@
 
 .main-row {
   height: 100%;
+  min-height: 580px;
   display: flex;
 }
 
@@ -12,7 +13,44 @@
   margin: 10px;
   background: #FFFFFF;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  min-width: 335px;
 }
+
+.left-column-footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  min-width: 335px;
+  margin: 0px;
+  height: 60px;
+}
+
+.left-column-footer .ant-btn {
+  height: 100%;
+  width: 100%;
+  background: #EC174F;
+  align-items: center;
+  text-align: center;
+  border: 0px;
+  border-radius: unset;
+}
+
+.left-column-footer .ant-btn:hover {
+  background: rgb(235, 77, 116);
+  color: #FFFFFF;
+}
+
+.left-column-footer .ant-btn span {
+  font-family: PT Sans Caption;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 23px;
+  color: #FFFFFF;
+}
+
 
 .right-column {
   width: 70%;
