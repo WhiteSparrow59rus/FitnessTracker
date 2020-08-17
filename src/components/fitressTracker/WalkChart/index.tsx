@@ -84,7 +84,7 @@ const Chart: React.FC<Props> = (props) => {
   const id = open ? 'spring-popper' : undefined;
 
   return (
-    <div ref={chartRef} style={{ height: '600px'}}>
+    <div ref={chartRef} style={{ height: '490px'}}>
       <ResponsiveLine
         data={[data]}
         margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
