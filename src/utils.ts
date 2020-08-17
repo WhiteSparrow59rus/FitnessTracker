@@ -8,3 +8,11 @@ export const pluralize = (count: number, words: string[]): string => {
   var cases = [2, 0, 1, 1, 1, 2];
   return count + ' ' + words[ (count % 100 > 4 && count % 100 < 20) ? 2 : cases[ Math.min(count % 10, 5)] ];
 }
+
+/**
+ * Возвращает строку с первым заглавным символом.
+ * @param string 
+ */
+export const jsUcfirst = (string: string): string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

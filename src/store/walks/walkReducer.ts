@@ -1,15 +1,21 @@
 import { Walk } from "../../types/Walk"
 import { WalkActionTypes } from "../../types/actions"
 
-const walksReducerDefaultState: Walk[] = []
+// const walksReducerDefaultState: Walk[] = []
+
+const addDays = function(date: Date, days: number): Date {
+  date.setDate(date.getDate() + days);
+  return date;
+}
 
 // Тестовый массив прогулок
 const getTestArray = function(): Walk[]  {
   let walks: Walk[] = []
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 20; i++) {
+    let currentDate = new Date()
     const newWalk: Walk = {
       id: i.toString(),
-      date: new Date(),
+      date: addDays(currentDate, i),
       distance: i*303
     }
     walks.push(newWalk)
@@ -24,6 +30,17 @@ const walkReducer = (state = getTestArray(), action: WalkActionTypes): Walk[] =>
       return action.walks
     case "ADD_WALK":
       return [...state, action.walk]
+    case "EDIT_WALK":
+      return state.map(walk => {
+        if (walk.id === action.walk.id) {
+          return {
+            ...walk,
+            ...action.walk
+          };
+        } else {
+          return walk;
+        }
+      });
     case "REMOVE_WALK":
       return state.filter(({ id }) => id !== action.id)
     default:

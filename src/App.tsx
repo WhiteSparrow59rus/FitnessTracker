@@ -1,10 +1,8 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import './App.css';
 import { Provider } from "react-redux";
 import { store } from "./store";
-import WalksList from "./components/fitressTracker/WalksList"
-import WalkAdd from "./components/fitressTracker/WalkAdd"
+import WalksTable from "./components/fitressTracker/WalksTable"
 
 const App: React.FC = () => {
   return (
@@ -13,10 +11,7 @@ const App: React.FC = () => {
         <div className="main-row">
           <div className="left-column">
             <div className="site-layout-content">
-              <WalksList/>
-            </div>
-            <div  className="left-column-footer">
-              <WalkAdd/>
+              <WalksTable/>
             </div>
           </div>
           <div className="right-column">

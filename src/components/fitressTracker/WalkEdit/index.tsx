@@ -12,23 +12,25 @@ import { AppState } from "../../../store";
 import { AppActions } from "../../../types/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { bindActionCreators } from "redux";
-import { startAddWalk } from "../../../store/walks/actions";
+import { startEditWalk } from "../../../store/walks/actions";
 import { connect } from "react-redux";
-import { StyledWalkAddButton } from './styled'
 import ruLocale from "date-fns/locale/ru";
-
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MenuItem from '@material-ui/core/MenuItem';
 
-interface WalkAddProps {}
+interface WalkEditProps {
+  editWalk: Walk,
+  clickHandler: () => void;
+}
 interface WalkAddState {}
-type Props = WalkAddProps & LinkStateProps & LinkDispatchProps
+type Props = WalkEditProps & LinkStateProps & LinkDispatchProps
 
-const WalkAdd: React.FC<Props> = (props) => {
+const WalkEdit: React.FC<Props> = (props) => {
   const [open, setOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date(),
+    props.editWalk.date,
   );
-  const [distance, setDistance] = React.useState<number>(0);
+  const [distance, setDistance] = React.useState<number>(props.editWalk.distance);
   
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
@@ -44,6 +46,7 @@ const WalkAdd: React.FC<Props> = (props) => {
 
   const handleClose = () => {
     setOpen(false);
+    props.clickHandler()
   };
 
   const resetFields = () => {
@@ -52,23 +55,27 @@ const WalkAdd: React.FC<Props> = (props) => {
   }
 
   const handleSave = () => {
-    const newWalk: Walk = {
-      id: new Date().getTime().toString(),
+    const editWalk: Walk = {
+      id: props.editWalk.id,
       date: selectedDate as Date,
       distance: distance
     }
-    props.startAddWalk(newWalk)
+    props.startEditWalk(editWalk)
     resetFields()
+    props.clickHandler()
     setOpen(false);
   };
 
   return (
     <div style={{ 'height': '100%'}}>
-      <StyledWalkAddButton onClick={handleClickOpen}>
-        Добавить запись
-      </StyledWalkAddButton>
+      <MenuItem
+        key={'edit'}
+        onClick={handleClickOpen}
+      >
+        Редактировать
+      </MenuItem>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Добавить запись прогулки</DialogTitle>
+        <DialogTitle id="form-dialog-title">Редактировать запись прогулки</DialogTitle>
         <DialogContent>
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
           <KeyboardDatePicker
@@ -102,7 +109,7 @@ const WalkAdd: React.FC<Props> = (props) => {
             Отмена
           </Button>
           <Button onClick={handleSave} color="primary">
-            Создать
+            Сохранить
           </Button>
         </DialogActions>
       </Dialog>
@@ -112,15 +119,15 @@ const WalkAdd: React.FC<Props> = (props) => {
 
 interface LinkStateProps {}
 interface LinkDispatchProps {
-  startAddWalk: (walk: Walk) => void
+  startEditWalk: (walk: Walk) => void
 }
 
-const mapStateToProps = (state: AppState, ownProps: WalkAddProps): LinkStateProps => ({
+const mapStateToProps = (state: AppState, ownProps: WalkEditProps): LinkStateProps => ({
   walks: state.walks
 })
 
-const mapDispatchToProps = ( dispatch: ThunkDispatch<any, any, AppActions>, ownProps: WalkAddProps): LinkDispatchProps => ({
-  startAddWalk: bindActionCreators(startAddWalk, dispatch)
+const mapDispatchToProps = ( dispatch: ThunkDispatch<any, any, AppActions>, ownProps: WalkEditProps): LinkDispatchProps => ({
+  startEditWalk: bindActionCreators(startEditWalk, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(WalkAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(WalkEdit);

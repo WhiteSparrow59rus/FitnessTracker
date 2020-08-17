@@ -13,6 +13,11 @@ export const addWalk = (walk: Walk): AppActions => ({
   walk
 })
 
+export const editWalk = (walk: Walk): AppActions => ({
+  type: "EDIT_WALK",
+  walk
+})
+
 export const removeWalk = (id: string): AppActions => ({
   type: "REMOVE_WALK",
   id
@@ -34,7 +39,15 @@ export const startAddWalk = ( walk: Walk ) => {
   }
 }
 
-export const startRemoveWalk = ( id: string ) => {
+export const startEditWalk = ( walk: Walk ) => {
+  return ( dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+    dispatch(
+      editWalk(walk)
+    )
+  }
+}
+
+export const startRemoveWalk = ( id: string )  => {
   return ( dispatch: Dispatch<AppActions>, getState: () => AppState) => {
     dispatch(
       removeWalk(id)
