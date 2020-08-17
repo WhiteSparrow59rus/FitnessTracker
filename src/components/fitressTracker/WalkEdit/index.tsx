@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import ruLocale from "date-fns/locale/ru";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MenuItem from '@material-ui/core/MenuItem';
+import { format } from 'date-fns'
 
 interface WalkEditProps {
   editWalk: Walk,
@@ -66,6 +67,13 @@ const WalkEdit: React.FC<Props> = (props) => {
     setOpen(false);
   };
 
+  const disableExistDates = (date: Date | null): boolean => {
+    if (date == null || format(props.editWalk.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')) {
+      return false
+    }
+    return props.walks.some(walk => format(walk.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'))
+  }
+
   return (
     <div style={{ 'height': '100%'}}>
       <MenuItem
@@ -89,6 +97,7 @@ const WalkEdit: React.FC<Props> = (props) => {
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
+            shouldDisableDate={disableExistDates}
           />
           <TextField
             required
@@ -117,7 +126,9 @@ const WalkEdit: React.FC<Props> = (props) => {
   );
 }
 
-interface LinkStateProps {}
+interface LinkStateProps {
+  walks: Walk[]
+}
 interface LinkDispatchProps {
   startEditWalk: (walk: Walk) => void
 }

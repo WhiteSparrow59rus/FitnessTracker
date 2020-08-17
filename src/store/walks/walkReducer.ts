@@ -1,22 +1,18 @@
 import { Walk } from "../../types/Walk"
 import { WalkActionTypes } from "../../types/actions"
+import { addDays, randomInteger } from '../../utils'
 
 // const walksReducerDefaultState: Walk[] = []
-
-const addDays = function(date: Date, days: number): Date {
-  date.setDate(date.getDate() + days);
-  return date;
-}
 
 // Тестовый массив прогулок
 const getTestArray = function(): Walk[]  {
   let walks: Walk[] = []
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 50; i++) {
     let currentDate = new Date()
     const newWalk: Walk = {
       id: i.toString(),
-      date: addDays(currentDate, i),
-      distance: i*303
+      date: addDays(currentDate, -i),
+      distance: randomInteger(0, 3000)
     }
     walks.push(newWalk)
   }
@@ -24,6 +20,7 @@ const getTestArray = function(): Walk[]  {
     walks
   )
 }
+
 const walkReducer = (state = getTestArray(), action: WalkActionTypes): Walk[] => {
   switch (action.type) {
     case "SET_WALKS": 

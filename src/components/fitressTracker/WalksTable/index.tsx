@@ -209,7 +209,7 @@ const EnhancedTable: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Walk>('distance');
+  const [orderBy, setOrderBy] = React.useState<keyof Walk>('date');
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Walk) => {

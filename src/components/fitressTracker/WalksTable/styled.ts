@@ -29,7 +29,6 @@ const StyledFooter = styled.div`
 
 const StyledDayName = styled.div`
   color: rgba(28, 32, 37, 0.4);
-  font-family: PT Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 9px;

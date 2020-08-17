@@ -3,6 +3,9 @@ import './App.css';
 import { Provider } from "react-redux";
 import { store } from "./store";
 import WalksTable from "./components/fitressTracker/WalksTable"
+import WalksInfo from "./components/fitressTracker/WalksInfo"
+import Chart from "./components/fitressTracker/WalkChart"
+import { StyledRightColumn, StyledRightColumnHeader } from './stuled'
 
 const App: React.FC = () => {
   return (
@@ -14,12 +17,13 @@ const App: React.FC = () => {
               <WalksTable/>
             </div>
           </div>
-          <div className="right-column">
-            col-18
-            <div className="right-column-footer">
-
-            </div>
-          </div>
+          <StyledRightColumn>
+            <StyledRightColumnHeader>
+              Суммарная активность
+            </StyledRightColumnHeader>
+              <Chart/>
+            <WalksInfo/>
+          </StyledRightColumn>
         </div>
       </div>
     </Provider>

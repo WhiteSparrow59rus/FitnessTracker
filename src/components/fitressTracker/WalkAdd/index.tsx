@@ -16,6 +16,7 @@ import { startAddWalk } from "../../../store/walks/actions";
 import { connect } from "react-redux";
 import { StyledWalkAddButton } from './styled'
 import ruLocale from "date-fns/locale/ru";
+import { format } from 'date-fns'
 
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
@@ -62,6 +63,13 @@ const WalkAdd: React.FC<Props> = (props) => {
     setOpen(false);
   };
 
+  const disableExistDates = (date: Date | null): boolean => {
+    if (date == null) {
+      return false
+    }
+    return props.walks.some(walk => format(walk.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'))
+  }
+
   return (
     <div style={{ 'height': '100%'}}>
       <StyledWalkAddButton onClick={handleClickOpen}>
@@ -82,6 +90,7 @@ const WalkAdd: React.FC<Props> = (props) => {
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
+            shouldDisableDate={disableExistDates}
           />
           <TextField
             required
@@ -110,7 +119,9 @@ const WalkAdd: React.FC<Props> = (props) => {
   );
 }
 
-interface LinkStateProps {}
+interface LinkStateProps {
+  walks: Walk[]
+}
 interface LinkDispatchProps {
   startAddWalk: (walk: Walk) => void
 }
